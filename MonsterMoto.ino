@@ -1,16 +1,16 @@
-// Pins remapped to work with a Teensy
+using namespace reflectaFunctions;
 
-#define MOTOR_0_A 2 // 7
-#define MOTOR_0_B 1 // 8
-#define MOTOR_0_PWM 10 // 5
-#define MOTOR_0_CURRENT 0 // 2
-#define MOTOR_0_ENABLED 7 // 0
+byte MOTOR_0_A          = 7;
+byte MOTOR_0_B          = 8;
+byte MOTOR_0_PWM        = 5;
+byte MOTOR_0_CURRENT    = 2;
+byte MOTOR_0_ENABLED    = 0;
 
-#define MOTOR_1_A 3 // 4
-#define MOTOR_1_B 0 // 9
-#define MOTOR_1_PWM 9 // 6
-#define MOTOR_1_CURRENT 1 // 3
-#define MOTOR_1_ENABLED 8 // 1
+byte MOTOR_1_A          = 4;
+byte MOTOR_1_B          = 9;
+byte MOTOR_1_PWM        = 6;
+byte MOTOR_1_CURRENT    = 3;
+byte MOTOR_1_ENABLED    = 1;
 
 void BrakeVcc()
 {
@@ -68,7 +68,7 @@ void ReadCurrent()
   reflectaFunctions::push16(analogRead(MOTOR_1_CURRENT));
 }
 
-void monsterMotoSetup()
+void Initialize()
 {
   pinMode(MOTOR_0_A, OUTPUT);
   pinMode(MOTOR_0_B, OUTPUT);
@@ -83,9 +83,29 @@ void monsterMotoSetup()
 
   digitalWrite(MOTOR_0_ENABLED, HIGH);
   digitalWrite(MOTOR_1_ENABLED, HIGH);
-  
-  reflectaFunctions::bind("MOTO1", BrakeGround);
-  reflectaFunctions::bind("MOTO1", BrakeVcc);
-  reflectaFunctions::bind("MOTO1", Drive);
-  reflectaFunctions::bind("MOTO1", ReadCurrent);
+}
+
+void Configure()
+{
+  MOTOR_0_A         = pop();
+  MOTOR_0_B         = pop();
+  MOTOR_0_PWM       = pop();
+  MOTOR_0_CURRENT   = pop();
+  MOTOR_0_ENABLED   = pop();
+
+  MOTOR_1_A         = pop();
+  MOTOR_1_B         = pop();
+  MOTOR_1_PWM       = pop();
+  MOTOR_1_CURRENT   = pop();
+  MOTOR_1_ENABLED   = pop();
+}
+
+void monsterMotoSetup()
+{
+  bind("MOTO1", BrakeGround);
+  bind("MOTO1", BrakeVcc);
+  bind("MOTO1", Drive);
+  bind("MOTO1", ReadCurrent);
+  bind("MOTO1", Configure);
+  bind("MOTO1", Initialize);
 }
