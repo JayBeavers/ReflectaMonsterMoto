@@ -102,10 +102,10 @@ void Configure()
 
 void monsterMotoSetup()
 {
-  bind("MOTO1", BrakeGround);
-  bind("MOTO1", BrakeVcc);
-  bind("MOTO1", Drive);
-  bind("MOTO1", ReadCurrent);
-  bind("MOTO1", Configure);
-  bind("MOTO1", Initialize);
+  bind("moto1", BrakeGround);
+  bind("moto1", BrakeVcc);
+  bind("moto1", Drive);
+  bind("moto1", ReadCurrent);
+  bind("moto1", Configure);
+  bind("moto1", Initialize);
 }
